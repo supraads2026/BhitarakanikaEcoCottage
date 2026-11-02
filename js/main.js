@@ -96,7 +96,7 @@ function renderChrome() {
     </div>
     <div class="container footer__copy">
       <span>© ${new Date().getFullYear()} Bhitarkanika Eco Cottage · bhitarkanikaecocottage.com</span>
-      <span>Park closed to visitors 1 May – 31 July every year</span>
+      <span>Park closed to visitors 1 May – 31 July every year · <a href="credits.html">Photo credits</a></span>
     </div>
   </footer>
   <a href="${waLink("Namaskar! I have a question about Bhitarkanika Eco Cottage.")}" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${ICON.wa}<span class="wa-float__tip">Chat with us</span></a>
@@ -372,6 +372,27 @@ stayForm();
 boatForm();
 contactForm();
 gallery();
+
+/* ---------- Video: fade in hero loops, play gallery clips only while on screen ---------- */
+(function videos() {
+  if (reduceMotion) return;
+  $$("video.hero__video, video.js-autovid").forEach(v => {
+    v.addEventListener("playing", () => v.classList.add("is-playing"));
+    v.addEventListener("error", () => v.remove());
+  });
+  const io = new IntersectionObserver(es => es.forEach(({ target: v, isIntersecting }) => {
+    if (isIntersecting) v.play().catch(() => {}); else v.pause();
+  }), { threshold: 0.25 });
+  $$("video.hero__video, video.js-autovid").forEach(v => io.observe(v));
+})();
+
+/* ---------- Cards: soft gold light follows the pointer ---------- */
+document.addEventListener("pointermove", e => {
+  const c = e.target.closest?.(".card, .pkg"); if (!c) return;
+  const r = c.getBoundingClientRect();
+  c.style.setProperty("--mx", `${e.clientX - r.left}px`);
+  c.style.setProperty("--my", `${e.clientY - r.top}px`);
+}, { passive: true });
 
 /* ---------- Split-screen story: crossfade sticky media as chapters scroll ---------- */
 (function story() {

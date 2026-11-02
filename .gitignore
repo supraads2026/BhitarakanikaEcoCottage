@@ -2,3 +2,5 @@
 images/reference/
 .DS_Store
 Thumbs.db
+# Downloaded originals (slot copies live in images/); credits.json is kept
+images/commons/*.jpg
