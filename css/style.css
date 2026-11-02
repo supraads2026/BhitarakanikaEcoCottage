@@ -807,3 +807,98 @@ address { background: var(--surface); }
   .tile .tile__cap { margin: 10px; padding: 14px 16px; }
 }
 @media (prefers-reduced-motion: reduce) { .section--sand::before, .section--green::before { animation: none; } }
+
+/* =========================================================
+   Mobile & touch polish
+   ========================================================= */
+/* form fields may shrink inside grids (date inputs have a wide intrinsic size on iOS/Android) */
+.booking-bar label, .booking-bar input, .booking-bar select,
+.form-card label, .form-card input, .form-card select, .row2 > * { min-width: 0; }
+input[type="date"] { -webkit-appearance: none; appearance: none; min-height: 48px; }
+
+/* comfortable tap targets for standalone text links */
+.card__foot .link, .exp .link, .chapter .link, .fact .link, .reveal.link, p.center > .link {
+  display: inline-flex; align-items: center; min-height: 44px;
+}
+
+/* touch screens: no hover, so show tile descriptions and skip hover-only effects */
+@media (hover: none) {
+  .tile p { max-height: none; opacity: 1; margin-top: 6px; }
+  .card:hover, .pkg:hover, .fact:hover, .contact-card:hover, .stat:hover { transform: none; }
+  .card::before, .pkg::before { display: none; }
+}
+
+@media (max-width: 820px) {
+  .booking-bar { width: 100%; padding: 16px; gap: 12px; }
+  .hero__content { padding-inline: 4px; }
+  .section__head { margin-bottom: 40px; }
+  .exp { padding: 44px 0; }
+  .story__chapters { padding: 0 16px; }
+}
+
+@media (max-width: 600px) {
+  .container { width: calc(100% - 32px); }
+  /* hero */
+  .hero { padding-top: calc(var(--header-h) + 24px); }
+  .hero .eyebrow { font-size: .64rem; letter-spacing: .2em; gap: 0; justify-content: center; text-align: center; line-height: 1.6; }
+  .hero .eyebrow::before, .hero .eyebrow::after { display: none; }
+  .hero__sub { font-size: 1rem; margin: 14px auto 26px; }
+  .hero__btns { flex-direction: column; align-items: stretch; width: 100%; max-width: 340px; margin-inline: auto; }
+  .hero__btns--left { margin-inline: 0; }
+  .page-hero .hero__content { margin-left: 0; padding: 0 16px; }
+  .page-hero { min-height: 64svh; }
+  .booking-bar { grid-template-columns: 1fr; border-radius: 20px; }
+  .booking-bar button { grid-column: auto; }
+
+  /* type scale */
+  h1 { font-size: clamp(2.4rem, 11vw, 3.2rem); }
+  h2 { font-size: clamp(1.9rem, 8.5vw, 2.5rem); }
+  .eyebrow { letter-spacing: .22em; font-size: .7rem; }
+  .lead { font-size: 1.06rem; }
+  .quote p { font-size: 1.6rem; }
+
+  /* sections & cards */
+  .section { padding: 72px 0; }
+  .split__media { min-height: 360px; }
+  .badge-float { padding: 12px 16px; bottom: 20px; }
+  .badge-float strong { font-size: 1.7rem; }
+  .card__body { padding: 22px 20px 20px; }
+  .pkg { padding: 40px 22px 26px; }
+  .tiles { grid-auto-rows: 260px; }
+  .stats { gap: 12px; }
+  .stat { padding: 22px 8px; }
+  .stat strong { font-size: 2.4rem; }
+  .trust { padding: 18px 0; }
+  .trust__row { gap: 14px 6px; }
+  .trust__item { border-right: 0; }
+  .trust__item strong { font-size: 1.25rem; }
+  .trust__item > span { font-size: .66rem; letter-spacing: .12em; }
+  .marquee { padding: 16px 0; }
+  .ghat-list li { padding: 14px; }
+  .ghat-list li:hover, .ghat-list li.is-active { transform: none; }
+  .form-card { padding: 22px 18px; border-radius: 20px; }
+  .map { border-width: 4px; aspect-ratio: 4/4.4; }
+  .filters { gap: 8px; }
+  .filters button { padding: 9px 16px; min-height: 40px; }
+  .masonry { columns: 2 150px; column-gap: 12px; }
+  .m { margin-bottom: 12px; }
+  .video-card { aspect-ratio: 16/10; }
+  .cards[style*="repeat(2"] { grid-template-columns: 1fr !important; }
+  .faq summary { font-size: 1.15rem; padding: 20px 40px 20px 0; }
+  .cta { padding: 90px 0; }
+  .lightbox { padding: 12px; }
+  .lightbox__img { width: 94vw; aspect-ratio: 4/3; }
+
+  /* floating glass nav sits a little tighter on phones */
+  .nav.is-solid .nav__inner { margin-top: 6px; height: calc(100% - 12px); }
+  .brand img { width: 36px; height: 36px; }
+  .nav__links a { font-size: 1.7rem; }
+}
+
+/* very small phones (iPhone SE / 320–360px) */
+@media (max-width: 360px) {
+  .brand__text { font-size: 1.05rem; }
+  .brand__text small { letter-spacing: .28em; }
+  .mobile-bar a { font-size: .7rem; letter-spacing: .08em; }
+  .stats, .trust__row { grid-template-columns: 1fr 1fr; }
+}

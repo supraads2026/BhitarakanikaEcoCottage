@@ -375,7 +375,14 @@ gallery();
 
 /* ---------- Video: fade in hero loops, play gallery clips only while on screen ---------- */
 (function videos() {
-  if (reduceMotion) return;
+  const saveData = navigator.connection?.saveData;
+  if (reduceMotion || saveData) { $$("video.hero__video, video.js-autovid").forEach(v => v.remove()); return; }
+  // phones get the lighter 720px encodes (media/*-m.mp4)
+  const LIGHT = ["stay-reel", "room-reveal", "creek-glide", "hero-reel", "fireflies-night", "boat-jetty"];
+  if (matchMedia("(max-width: 700px)").matches) $$("video.hero__video").forEach(v => {
+    const m = v.getAttribute("src").match(/media\/([\w-]+)\.mp4$/);
+    if (m && LIGHT.includes(m[1])) v.src = `media/${m[1]}-m.mp4`;
+  });
   $$("video.hero__video, video.js-autovid").forEach(v => {
     v.addEventListener("playing", () => v.classList.add("is-playing"));
     v.addEventListener("error", () => v.remove());
