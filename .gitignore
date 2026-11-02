@@ -1,0 +1,4 @@
+# Reference photos/videos from other sources — private, never commit or publish
+images/reference/
+.DS_Store
+Thumbs.db
